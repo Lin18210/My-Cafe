@@ -1,0 +1,10 @@
+<svg width="300" height="200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#D2B48C" />
+  <g transform="translate(100,70)">
+    <path d="M70,0 L90,0 L90,80 C90,90 80,100 70,100 L30,100 C20,100 10,90 10,80 L10,0 L30,0" fill="#8B4513" />
+    <path d="M10,0 C10,-10 30,-20 50,-20 C70,-20 90,-10 90,0" fill="#8B4513" />
+    <path d="M90,20 L110,20 C115,20 120,25 120,30 L120,40 C120,45 115,50 110,50 L90,50" fill="#A0522D" />
+    <ellipse cx="50" cy="30" rx="30" ry="10" fill="#F5DEB3" opacity="0.6" />
+  </g>
+  <text x="150" y="160" font-family="Arial" font-size="16" text-anchor="middle" fill="#5D4037">Coffee</text>
+</svg>
