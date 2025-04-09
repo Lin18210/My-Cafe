@@ -7,7 +7,7 @@ const Home = () => {
       {/* Hero Section */}
       <div className="bg-[url('/src/assets/hero-bg.jpg')] bg-cover bg-center h-[500px] flex items-center justify-center">
         <div className="text-center p-8 bg-black/40 rounded-lg backdrop-blur-sm max-w-2xl">
-          <h1 className="text-5xl font-bold text-white mb-4">Welcome to Café Delight</h1>
+          <h1 className="text-5xl font-bold text-white mb-4">Welcome to Sunshine Cafe</h1>
           <p className="text-xl text-white mb-6">Experience the perfect blend of flavor and ambiance</p>
           <Link to="/menu" className="bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-6 rounded-full transition-colors inline-block">
             View Our Menu

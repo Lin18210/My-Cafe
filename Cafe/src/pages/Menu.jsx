@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useCart } from '../context/CartContext';
 
 const Menu = () => {
   const [activeCategory, setActiveCategory] = useState('coffee');
+  const { addToCart } = useCart();
 
   const categories = [
     { id: 'coffee', name: 'Coffee' },
@@ -143,7 +145,10 @@ const Menu = () => {
                   <span className="text-amber-600 font-bold">${item.price.toFixed(2)}</span>
                 </div>
                 <p className="text-gray-600 mb-4">{item.description}</p>
-                <button className="bg-amber-600 hover:bg-amber-700 text-white font-medium py-2 px-4 rounded transition-colors">
+                <button 
+                  onClick={() => addToCart({...item, category: activeCategory})}
+                  className="bg-amber-600 hover:bg-amber-700 text-white font-medium py-2 px-4 rounded transition-colors"
+                >
                   Add to Order
                 </button>
               </div>
