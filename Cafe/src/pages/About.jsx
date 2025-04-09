@@ -2,15 +2,15 @@ import React from 'react';
 
 const About = () => {
   return (
-    <div className="min-h-screen bg-amber-50 py-12 px-4">
+    <div className="min-h-screen bg-amber-50 py-8 md:py-12 px-4">
       <div className="container mx-auto">
-        <h1 className="text-4xl font-bold text-center mb-12 text-amber-900">About Us</h1>
+        <h1 className="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12 text-amber-900">About Us</h1>
         
         {/* Our Story Section */}
-        <div className="bg-white rounded-lg shadow-md overflow-hidden mb-12">
+        <div className="bg-white rounded-lg shadow-md overflow-hidden mb-8 md:mb-12">
           <div className="md:flex">
             <div className="md:w-1/2 bg-amber-200 h-64 md:h-auto"></div>
-            <div className="p-8 md:w-1/2">
+            <div className="p-6 md:p-8 md:w-1/2">
               <h2 className="text-2xl font-bold mb-4 text-amber-900">Our Story</h2>
               <p className="text-gray-700 mb-4">
                 Café Delight was founded in 2010 with a simple mission: to create a warm, welcoming space where people could enjoy exceptional coffee and food. What started as a small corner shop has grown into a beloved community gathering place.
@@ -23,9 +23,9 @@ const About = () => {
         </div>
         
         {/* Our Values Section */}
-        <div className="mb-12">
-          <h2 className="text-2xl font-bold text-center mb-8 text-amber-900">Our Values</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="mb-8 md:mb-12">
+          <h2 className="text-xl md:text-2xl font-bold text-center mb-6 md:mb-8 text-amber-900">Our Values</h2>
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
             <div className="bg-white p-6 rounded-lg shadow-md text-center">
               <div className="text-4xl mb-4 text-amber-600">🌱</div>
               <h3 className="text-xl font-semibold mb-2 text-amber-900">Sustainability</h3>
@@ -52,7 +52,7 @@ const About = () => {
             <div className="md:w-1/2 bg-gray-300 h-64 md:h-auto">{
               /* This would be a map in a real implementation */
             }</div>
-            <div className="p-8 md:w-1/2">
+            <div className="p-6 md:p-8 md:w-1/2">
               <h2 className="text-2xl font-bold mb-4 text-amber-900">Visit Us</h2>
               <div className="mb-4">
                 <h3 className="font-semibold text-amber-800 mb-2">Address</h3>

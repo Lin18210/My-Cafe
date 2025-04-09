@@ -120,12 +120,12 @@ const Menu = () => {
         <h1 className="text-4xl font-bold text-center mb-12 text-amber-900">Our Menu</h1>
         
         {/* Category Navigation */}
-        <div className="flex justify-center mb-12 overflow-x-auto">
+        <div className="flex justify-center mb-8 md:mb-12 overflow-x-auto py-2">
           <div className="flex space-x-2 md:space-x-4">
             {categories.map((category) => (
               <button
                 key={category.id}
-                className={`px-4 py-2 rounded-full font-medium transition-colors ${activeCategory === category.id ? 'bg-amber-600 text-white' : 'bg-white text-amber-900 hover:bg-amber-100'}`}
+                className={`px-3 py-2 md:px-4 md:py-2 text-sm md:text-base rounded-full font-medium transition-colors ${activeCategory === category.id ? 'bg-amber-600 text-white' : 'bg-white text-amber-900 hover:bg-amber-100'}`}
                 onClick={() => setActiveCategory(category.id)}
               >
                 {category.name}
@@ -135,7 +135,7 @@ const Menu = () => {
         </div>
         
         {/* Menu Items Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-8">
           {menuItems[activeCategory].map((item) => (
             <div key={item.id} className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-shadow">
               <div className="h-48 bg-amber-200"></div>

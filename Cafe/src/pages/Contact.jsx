@@ -42,12 +42,12 @@ const Contact = () => {
   };
 
   return (
-    <div className="min-h-screen bg-amber-50 py-12 px-4">
+    <div className="min-h-screen bg-amber-50 py-8 md:py-12 px-4">
       <div className="container mx-auto max-w-4xl">
-        <h1 className="text-4xl font-bold text-center mb-12 text-amber-900">Contact Us</h1>
+        <h1 className="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12 text-amber-900">Contact Us</h1>
         
         <div className="bg-white rounded-lg shadow-md overflow-hidden">
-          <div className="md:flex">
+          <div className="flex flex-col md:flex-row">
             {/* Contact Information */}
             <div className="bg-amber-700 text-white p-8 md:w-2/5">
               <h2 className="text-2xl font-bold mb-6">Get In Touch</h2>

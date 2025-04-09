@@ -5,21 +5,21 @@ const Home = () => {
   return (
     <div className="min-h-screen bg-amber-50">
       {/* Hero Section */}
-      <div className="bg-[url('/src/assets/hero-bg.jpg')] bg-cover bg-center h-[500px] flex items-center justify-center">
-        <div className="text-center p-8 bg-black/40 rounded-lg backdrop-blur-sm max-w-2xl">
-          <h1 className="text-5xl font-bold text-white mb-4">Welcome to Sunshine Cafe</h1>
-          <p className="text-xl text-white mb-6">Experience the perfect blend of flavor and ambiance</p>
-          <Link to="/menu" className="bg-amber-600 hover:bg-amber-700 text-white font-bold py-3 px-6 rounded-full transition-colors inline-block">
+      <div className="bg-[url('/src/assets/hero-bg.jpg')] bg-cover bg-center h-[400px] md:h-[500px] flex items-center justify-center px-4">
+        <div className="text-center p-6 md:p-8 bg-black/40 rounded-lg backdrop-blur-sm w-full max-w-2xl">
+          <h1 className="text-3xl md:text-5xl font-bold text-white mb-3 md:mb-4">Welcome to Sunshine Cafe</h1>
+          <p className="text-lg md:text-xl text-white mb-4 md:mb-6">Experience the perfect blend of flavor and ambiance</p>
+          <Link to="/menu" className="bg-amber-600 hover:bg-amber-700 text-white font-bold py-2 px-4 md:py-3 md:px-6 rounded-full transition-colors inline-block">
             View Our Menu
           </Link>
         </div>
       </div>
 
       {/* Features Section */}
-      <div className="container mx-auto py-16 px-4">
-        <h2 className="text-3xl font-bold text-center mb-12 text-amber-900">Why Choose Us</h2>
+      <div className="container mx-auto py-10 md:py-16 px-4">
+        <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-amber-900">Why Choose Us</h2>
         
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8">
           <div className="bg-white p-6 rounded-lg shadow-md text-center">
             <div className="text-4xl mb-4 text-amber-600">☕</div>
             <h3 className="text-xl font-semibold mb-2 text-amber-900">Premium Quality</h3>
@@ -41,11 +41,11 @@ const Home = () => {
       </div>
 
       {/* Special Offers Section */}
-      <div className="bg-amber-100 py-16">
+      <div className="bg-amber-100 py-10 md:py-16">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-center mb-12 text-amber-900">Today's Specials</h2>
+          <h2 className="text-2xl md:text-3xl font-bold text-center mb-8 md:mb-12 text-amber-900">Today's Specials</h2>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-8">
             <div className="bg-white rounded-lg overflow-hidden shadow-md flex flex-col md:flex-row">
               <div className="md:w-1/2 bg-amber-200 h-48 md:h-auto"></div>
               <div className="p-6 md:w-1/2">

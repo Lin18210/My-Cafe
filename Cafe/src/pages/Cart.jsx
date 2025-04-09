@@ -34,16 +34,18 @@ const Cart = () => {
           {/* Cart Items */}
           <div className="divide-y divide-gray-200">
             {cart.items.map((item) => (
-              <div key={`${item.category}-${item.id}`} className="p-6 flex items-center">
-                <div className="w-16 h-16 bg-amber-200 rounded-md flex-shrink-0"></div>
-                
-                <div className="ml-4 flex-grow">
+              <div key={`${item.category}-${item.id}`} className="p-4 md:p-6 flex flex-col md:flex-row md:items-center">
+                <div className="flex items-center w-full md:w-auto">
+                  <div className="w-16 h-16 bg-amber-200 rounded-md flex-shrink-0"></div>
+                  
+                  <div className="ml-4 flex-grow">
                   <h3 className="text-lg font-semibold text-amber-900">{item.name}</h3>
                   <p className="text-gray-600 text-sm">{item.description}</p>
                   <div className="text-amber-600 font-medium mt-1">${item.price.toFixed(2)}</div>
+                  </div>
                 </div>
                 
-                <div className="flex items-center">
+                <div className="flex items-center justify-between mt-4 md:mt-0 md:ml-4">
                   <button 
                     onClick={() => removeFromCart(item)}
                     className="w-8 h-8 rounded-full bg-amber-100 flex items-center justify-center text-amber-800 hover:bg-amber-200 transition-colors"
@@ -61,7 +63,7 @@ const Cart = () => {
                   </button>
                 </div>
                 
-                <div className="ml-6 text-right">
+                <div className="mt-4 md:mt-0 md:ml-6 text-right">
                   <div className="font-bold text-amber-900">
                     ${(item.price * item.quantity).toFixed(2)}
                   </div>
