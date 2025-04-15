@@ -1,9 +1,20 @@
 import React, { useState } from 'react';
 import { useCart } from '../context/CartContext';
+import Notification from '../components/Notification';
 
 const Menu = () => {
   const [activeCategory, setActiveCategory] = useState('coffee');
+  const [notification, setNotification] = useState({ visible: false, message: '' });
   const { addToCart } = useCart();
+  
+  const handleAddToCart = (item) => {
+    addToCart({...item, category: activeCategory});
+    setNotification({ visible: true, message: `${item.name} added to cart!` });
+  };
+  
+  const closeNotification = () => {
+    setNotification({ ...notification, visible: false });
+  };
 
   const categories = [
     { id: 'coffee', name: 'Coffee' },
@@ -146,7 +157,7 @@ const Menu = () => {
                 </div>
                 <p className="text-gray-600 mb-4">{item.description}</p>
                 <button 
-                  onClick={() => addToCart({...item, category: activeCategory})}
+                  onClick={() => handleAddToCart(item)}
                   className="bg-amber-600 hover:bg-amber-700 text-white font-medium py-2 px-4 rounded transition-colors"
                 >
                   Add to Order
@@ -156,6 +167,13 @@ const Menu = () => {
           ))}
         </div>
       </div>
+      
+      {/* Notification Popup */}
+      <Notification 
+        message={notification.message}
+        isVisible={notification.visible}
+        onClose={closeNotification}
+      />
     </div>
   );
 };

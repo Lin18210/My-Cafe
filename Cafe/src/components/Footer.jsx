@@ -9,7 +9,7 @@ const Footer = () => {
           <div>
             <Link to="/" className="text-2xl font-bold flex items-center mb-4">
               <span className="mr-2">☕</span>
-              <span>Café Delight</span>
+              <span>Sunshine Cafe</span>
             </Link>
             <p className="text-amber-200 mb-4">
               A cozy place to enjoy premium coffee, fresh pastries, and delicious meals in a warm atmosphere.
@@ -68,7 +68,7 @@ const Footer = () => {
         </div>
         
         <div className="border-t border-amber-800 mt-8 pt-8 text-center text-amber-200">
-          <p>&copy; {new Date().getFullYear()} Café Delight. All rights reserved.</p>
+          <p>&copy; {new Date().getFullYear()} Sunshine Cafe. All rights reserved.</p>
         </div>
       </div>
     </footer>
