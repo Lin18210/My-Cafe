@@ -90,9 +90,9 @@ const Cart = () => {
               </span>
             </div>
             
-            <button className="w-full bg-amber-600 hover:bg-amber-700 text-white font-medium py-3 px-4 rounded transition-colors">
+            <Link to="/checkout" className="w-full bg-amber-600 hover:bg-amber-700 text-white font-medium py-3 px-4 rounded transition-colors block text-center">
               Proceed to Checkout
-            </button>
+            </Link>
             
             <button 
               onClick={clearCart}
