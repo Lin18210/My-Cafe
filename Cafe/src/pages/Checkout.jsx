@@ -1,11 +1,13 @@
 import React, { useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
+import { useOrderHistory } from '../context/OrderHistoryContext';
 import { jsPDF } from 'jspdf';
 import html2canvas from 'html2canvas';
 
 const Checkout = () => {
   const { cart, clearCart } = useCart();
+  const { addOrder } = useOrderHistory();
   const navigate = useNavigate();
   const receiptRef = useRef(null);
 
@@ -52,9 +54,11 @@ const Checkout = () => {
   // Handle order completion
   const handleCompleteOrder = () => {
     // In a real app, you would process payment here
-    // For now, just clear the cart and redirect to home
+    // Save the order to history
+    addOrder(cart);
+    // Clear the cart and redirect to history page
     clearCart();
-    navigate('/');
+    navigate('/history');
   };
 
   return (

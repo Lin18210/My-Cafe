@@ -64,6 +64,10 @@ const Navbar = () => {
             Contact
           </Link>
           
+          <Link to="/history" className="hover:text-amber-200 transition-colors font-medium">
+            Order History
+          </Link>
+          
           {/* Cart Icon with Badge for Desktop */}
           <Link to="/cart" className="hover:text-amber-200 transition-colors font-medium relative ml-20">
             <span className="flex items-center">
@@ -110,6 +114,13 @@ const Navbar = () => {
               onClick={() => setIsMenuOpen(false)}
             >
               Contact
+            </Link>
+            <Link 
+              to="/history" 
+              className="hover:text-amber-200 transition-colors font-medium py-2"
+              onClick={() => setIsMenuOpen(false)}
+            >
+              Order History
             </Link>
           </div>
         </div>
