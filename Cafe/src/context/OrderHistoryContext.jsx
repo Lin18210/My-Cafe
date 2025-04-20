@@ -32,18 +32,14 @@ export const OrderHistoryProvider = ({ children }) => {
       receiptNumber: Math.floor(Math.random() * 10000).toString().padStart(4, '0')
     };
     
-    setOrderHistory(prevOrders => [newOrder, ...prevOrders]);
+    setOrderHistory(prev => [newOrder, ...prev]);
+    
     return newOrder;
-  };
-
-  // Get all orders
-  const getOrders = () => {
-    return orderHistory;
   };
 
   // Get a specific order by ID
   const getOrderById = (id) => {
-    return orderHistory.find(order => order.id === id);
+    return orderHistory.find(order => order.id === id) || null;
   };
 
   return (
@@ -51,7 +47,6 @@ export const OrderHistoryProvider = ({ children }) => {
       value={{
         orderHistory,
         addOrder,
-        getOrders,
         getOrderById
       }}
     >

@@ -50,25 +50,46 @@ const Footer = () => {
                 <Link to="/about" className="text-amber-200 hover:text-white transition-colors">About Us</Link>
               </li>
               <li>
-                <Link to="/contact" className="text-amber-200 hover:text-white transition-colors">Contact</Link>
+                <Link to="/contact" className="text-amber-200 hover:text-white transition-all duration-300 flex items-center hover:translate-x-1">
+                  <span className="text-amber-400 mr-2">→</span> Contact
+                </Link>
+              </li>
+              <li>
+                <Link to="/history" className="text-amber-200 hover:text-white transition-all duration-300 flex items-center hover:translate-x-1">
+                  <span className="text-amber-400 mr-2">→</span> Order History
+                </Link>
               </li>
             </ul>
           </div>
           
           {/* Contact Info */}
           <div>
-            <h3 className="text-lg font-semibold mb-4">Contact Us</h3>
-            <address className="not-italic">
-              <p className="mb-2">123 Coffee Street</p>
-              <p className="mb-2">Brewville, CA 90210</p>
-              <p className="mb-2">Phone: (555) 123-4567</p>
-              <p className="mb-2">Email: info@cafedelight.com</p>
+            <h3 className="text-lg font-semibold mb-4 text-amber-300 border-b border-amber-700 pb-2">Contact Us</h3>
+            <address className="not-italic space-y-3">
+              <div className="flex items-start">
+                <span className="text-amber-400 mr-2 mt-1">📍</span>
+                <div>
+                  <p className="text-amber-200">123 Coffee Street</p>
+                  <p className="text-amber-200">Brewville, CA 90210</p>
+                </div>
+              </div>
+              <p className="flex items-center">
+                <span className="text-amber-400 mr-2">📞</span>
+                <a href="tel:+11234567890" className="text-amber-200 hover:text-white transition-all duration-300 hover:underline">+1 (123) 456-7890</a>
+              </p>
+              <p className="flex items-center">
+                <span className="text-amber-400 mr-2">✉️</span>
+                <a href="mailto:info@sunshinecafe.com" className="text-amber-200 hover:text-white transition-all duration-300 hover:underline">info@sunshinecafe.com</a>
+              </p>
             </address>
           </div>
         </div>
         
-        <div className="border-t border-amber-800 mt-8 pt-8 text-center text-amber-200">
-          <p>&copy; {new Date().getFullYear()} Sunshine Cafe. All rights reserved.</p>
+        <div className="border-t border-amber-700 mt-8 pt-6 text-center">
+          <p className="text-amber-200">&copy; {new Date().getFullYear()} Sunshine Cafe. All rights reserved.</p>
+          <div className="mt-2 text-amber-400 text-sm">
+            <span className="animate-pulse inline-block">☕</span> Brewing happiness daily <span className="animate-pulse inline-block">☕</span>
+          </div>
         </div>
       </div>
     </footer>
