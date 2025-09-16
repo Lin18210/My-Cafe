@@ -24,6 +24,7 @@ function App() {
               <Route path="cart" element={<Cart />} />
               <Route path="checkout" element={<Checkout />} />
               <Route path="history" element={<History />} />
+              <Route path="*" element={<div>404: Page Not Found</div>} />
             </Route>
           </Routes>
         </BrowserRouter>

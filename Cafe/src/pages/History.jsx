@@ -86,9 +86,7 @@ const History = () => {
                   {expandedOrderId === order.id ? 'Hide Details' : 'Show Details'}
                 </button>
               </div>     
-            </div>
-          </div>
-          
+             </div>
               
               {/* Order Details (Expanded) */}    
               {expandedOrderId === order.id && (
