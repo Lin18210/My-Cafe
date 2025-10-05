@@ -1,12 +1,32 @@
-# React + Vite
+# Cafe — React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a cafe website built with React and Vite.
 
-Currently, two official plugins are available:
+## Getting Started
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+1. Install dependencies
 
-## Expanding the ESLint configuration
+```
+npm install
+```
 
-If you are developing a production application, we recommend using TypeScript and enable type-aware lint rules. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+2. Start the development server
+
+```
+npm run dev
+```
+
+## HubSpot Integration
+
+This project supports HubSpot tracking and a HubSpot form on the Contact page.
+
+1) Create a `.env` file (see `.env.example`) in the `Cafe/` folder and set:
+
+```
+VITE_HUBSPOT_PORTAL_ID=YOUR_PORTAL_ID
+VITE_HUBSPOT_FORM_ID_CONTACT=YOUR_FORM_GUID
+```
+
+2) Tracking code is injected via `index.html` using `VITE_HUBSPOT_PORTAL_ID`.
+
+3) The Contact page will automatically render the HubSpot form when both env vars are present; otherwise, the existing local React form acts as a fallback.

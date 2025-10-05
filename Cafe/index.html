@@ -5,9 +5,44 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Vite + React</title>
+    <!-- Start of HubSpot Embed Code -->
+    <script type="text/javascript" id="hs-script-loader" async defer src="//js-na2.hs-scripts.com/244034023.js"></script>
+    <script>
+      (function(){
+        try {
+          var portalId = (window.__ENV__ && window.__ENV__.VITE_HUBSPOT_PORTAL_ID) || window.HUBSPOT_PORTAL_ID;
+          // Vite injects import.meta.env at runtime in modules; this inline fallback lets us set via window if needed
+          if (!portalId) {
+            // Attempt to read from injected Vite env by creating a temporary module script
+            var s = document.createElement('script');
+            s.type = 'module';
+            s.textContent = "window.__HS_PORTAL_ID__ = import.meta.env.VITE_HUBSPOT_PORTAL_ID;";
+            s.onload = function(){
+              portalId = window.__HS_PORTAL_ID__;
+              if (portalId) { loadHs(portalId); }
+            };
+            document.head.appendChild(s);
+          } else {
+            loadHs(portalId);
+          }
+
+          function loadHs(id){
+            if (!id) return;
+            var hs = document.createElement('script');
+            hs.type = 'text/javascript';
+            hs.async = true;
+            hs.src = 'https://js.hs-analytics.net/analytics/'+ (Math.ceil(new Date()/300000)*300000) + '/'+ id + '.js';
+            var s = document.getElementsByTagName('script')[0];
+            s.parentNode.insertBefore(hs, s);
+          }
+        } catch(e) { /* no-op */ }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
     <script type="module" src="/src/main.jsx"></script>
+    <script src="https://js-na2.hsforms.net/forms/embed/244034023.js" defer></script>
+<div class="hs-form-frame" data-region="na2" data-form-id="3fe2ba13-e1b0-4e90-a23d-7bb1197a7f27" data-portal-id="244034023"></div>
   </body>
 </html>

@@ -56,6 +56,48 @@ const Checkout = () => {
     // In a real app, you would process payment here
     // Save the order to history
     addOrder(cart);
+    // HubSpot: track order event with items
+    try {
+      const portalId = import.meta.env.VITE_HUBSPOT_PORTAL_ID;
+      if (window && window._hsq && portalId) {
+        const lineItems = cart.items.map((item) => ({
+          id: `${item.category}-${item.id}`,
+          name: item.name,
+          category: item.category,
+          quantity: item.quantity,
+          price: Number(item.price),
+          total: Number(item.price) * Number(item.quantity),
+        }));
+        const revenue = lineItems.reduce((sum, li) => sum + li.total, 0);
+        // Order-level event
+        window._hsq.push(['trackCustomBehavioralEvent', {
+          name: 'order_completed',
+          properties: {
+            revenue,
+            tax: Number((cart.totalAmount * 0.08).toFixed(2)),
+            total: Number((cart.totalAmount * 1.08).toFixed(2)),
+            items: JSON.stringify(lineItems),
+          }
+        }]);
+
+        // Item-level events for product frequency analysis
+        lineItems.forEach((li) => {
+          window._hsq.push(['trackCustomBehavioralEvent', {
+            name: 'product_purchased',
+            properties: {
+              product_id: li.id,
+              product_name: li.name,
+              category: li.category,
+              quantity: li.quantity,
+              price: li.price,
+              total: li.total,
+            }
+          }]);
+        });
+      }
+    } catch (_) {
+      // no-op
+    }
     // Clear the cart and redirect to history page
     clearCart();
     navigate('/history');

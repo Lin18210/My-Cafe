@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -40,6 +40,37 @@ const Contact = () => {
       message: ''
     });
   };
+
+  // HubSpot form embed
+  const formContainerRef = useRef(null);
+  useEffect(() => {
+    const portalId = import.meta.env.VITE_HUBSPOT_PORTAL_ID;
+    const formId = import.meta.env.VITE_HUBSPOT_FORM_ID_CONTACT;
+    if (!portalId || !formId) return;
+
+    function loadScriptOnce() {
+      return new Promise((resolve) => {
+        if (window.hbspt) return resolve();
+        const script = document.createElement('script');
+        script.src = 'https://js.hsforms.net/forms/embed/v2.js';
+        script.async = true;
+        script.onload = () => resolve();
+        document.body.appendChild(script);
+      });
+    }
+
+    loadScriptOnce().then(() => {
+      if (window.hbspt && formContainerRef.current) {
+        // Clear any previous render to avoid duplicates on hot reload
+        formContainerRef.current.innerHTML = '';
+        window.hbspt.forms.create({
+          portalId,
+          formId,
+          target: '#hubspot-contact-form',
+        });
+      }
+    });
+  }, []);
 
   return (
     <div className="min-h-screen bg-amber-50 py-8 md:py-12 px-4">
@@ -85,6 +116,10 @@ const Contact = () => {
                 </div>
               ) : null}
               
+              {/* If HubSpot env provided, render HubSpot form; otherwise keep local fallback */}
+              {import.meta.env.VITE_HUBSPOT_PORTAL_ID && import.meta.env.VITE_HUBSPOT_FORM_ID_CONTACT ? (
+                <div id="hubspot-contact-form" ref={formContainerRef} />
+              ) : (
               <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                   <label htmlFor="name" className="block text-gray-700 font-medium mb-2">Your Name</label>
@@ -145,6 +180,7 @@ const Contact = () => {
                   Send Message
                 </button>
               </form>
+              )}
             </div>
           </div>
         </div>
