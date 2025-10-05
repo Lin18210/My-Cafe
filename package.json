@@ -1,5 +1,7 @@
 {
   "dependencies": {
+    "@fontsource/playfair-display": "^5.2.8",
+    "@fontsource/poppins": "^5.2.7",
     "html2canvas": "^1.4.1",
     "jspdf": "^3.0.1",
     "react-router-dom": "^7.5.0"
