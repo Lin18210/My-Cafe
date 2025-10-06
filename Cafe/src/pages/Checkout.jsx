@@ -51,60 +51,24 @@ const Checkout = () => {
     }
   };
 
-  // Send order data to Zapier webhook
-  const sendToZapier = async (orderData) => {
-    const zapierWebhookUrl = import.meta.env.VITE_ZAPIER_WEBHOOK_URL;
-    
-    if (!zapierWebhookUrl) {
-      console.warn('Zapier webhook URL not configured');
-      return;
-    }
-
+  const sendToBackend = async (orderData) => {
     try {
-      const response = await fetch(zapierWebhookUrl, {
+      await fetch('/api/hubspot/order', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          // Basic order info (strings)
-          order_id: orderData.orderId,
-          order_number: orderData.orderNumber,
-          
-          // Customer info
-          customer_email: 'customer@example.com',
-          customer_name: 'Guest Customer',
-          
-          // Financial details (as numbers for HubSpot)
-          order_total: Number(orderData.total.toFixed(2)),
-          order_subtotal: Number(orderData.subtotal.toFixed(2)),
-          order_tax: Number(orderData.tax.toFixed(2)),
-          currency: 'USD',
-          
-          // Order items as formatted string
-          order_items: orderData.items.map(item => 
-            `${item.name} (x${item.quantity}) - ${(item.price * item.quantity).toFixed(2)}`
-          ).join('; '),
-          
-          // Order items as JSON (for more complex processing)
-          order_items_json: JSON.stringify(orderData.items),
-          
-          // Timestamps (HubSpot needs milliseconds)
-          order_timestamp: Date.now(),
-          order_date_iso: new Date().toISOString(),
-          receipt_number: orderData.receiptNumber,
-          
-          // Item count (as number)
-          total_items: orderData.items.reduce((sum, item) => sum + item.quantity, 0)
+          customerEmail: 'customer@example.com', // replace with real
+          orderId: orderData.orderId,
+          orderNumber: orderData.orderNumber,
+          subtotal: orderData.subtotal,
+          tax: orderData.tax,
+          total: orderData.total,
+          items: orderData.items,
+          orderTimestamp: Date.now()
         })
       });
-
-      if (response.ok) {
-        console.log('Order successfully sent to Zapier');
-      } else {
-        console.error('Failed to send to Zapier:', response.status);
-      }
-    } catch (error) {
-      console.error('Error sending to Zapier:', error);
-      // Don't block checkout if Zapier fails
+    } catch (_) {
+      // non-blocking
     }
   };
 
@@ -128,8 +92,6 @@ const Checkout = () => {
       receiptNumber: newOrder.receiptNumber
     };
 
-    // Send to Zapier (async, won't block user)
-    sendToZapier(orderData);
     
     // Optional: Keep HubSpot tracking for analytics
     if (window._hsq) {
