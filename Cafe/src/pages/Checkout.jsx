@@ -51,54 +51,91 @@ const Checkout = () => {
     }
   };
 
-  // Handle order completion
-  const handleCompleteOrder = () => {
-    // In a real app, you would process payment here
-    // Save the order to history
-    addOrder(cart);
-    // HubSpot: track order event with items
-    try {
-      const portalId = import.meta.env.VITE_HUBSPOT_PORTAL_ID;
-      if (window && window._hsq && portalId) {
-        const lineItems = cart.items.map((item) => ({
-          id: `${item.category}-${item.id}`,
-          name: item.name,
-          category: item.category,
-          quantity: item.quantity,
-          price: Number(item.price),
-          total: Number(item.price) * Number(item.quantity),
-        }));
-        const revenue = lineItems.reduce((sum, li) => sum + li.total, 0);
-        // Order-level event
-        window._hsq.push(['trackCustomBehavioralEvent', {
-          name: 'order_completed',
-          properties: {
-            revenue,
-            tax: Number((cart.totalAmount * 0.08).toFixed(2)),
-            total: Number((cart.totalAmount * 1.08).toFixed(2)),
-            items: JSON.stringify(lineItems),
-          }
-        }]);
-
-        // Item-level events for product frequency analysis
-        lineItems.forEach((li) => {
-          window._hsq.push(['trackCustomBehavioralEvent', {
-            name: 'product_purchased',
-            properties: {
-              product_id: li.id,
-              product_name: li.name,
-              category: li.category,
-              quantity: li.quantity,
-              price: li.price,
-              total: li.total,
-            }
-          }]);
-        });
-      }
-    } catch (_) {
-      // no-op
+  // Send order data to Zapier webhook
+  const sendToZapier = async (orderData) => {
+    const zapierWebhookUrl = import.meta.env.VITE_ZAPIER_WEBHOOK_URL;
+    
+    if (!zapierWebhookUrl) {
+      console.warn('Zapier webhook URL not configured');
+      return;
     }
-    // Clear the cart and redirect to history page
+
+    try {
+      const response = await fetch(zapierWebhookUrl, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          // Send as numbers, not strings
+          order_total: Number(orderData.total.toFixed(2)),
+          order_subtotal: Number(orderData.subtotal.toFixed(2)),
+          order_tax: Number(orderData.tax.toFixed(2)),
+
+          // Timestamp in milliseconds for HubSpot
+          order_timestamp: Date.now(),
+
+          // Keep strings as strings
+          order_id: orderData.orderId,
+          order_number: orderData.orderNumber,
+          customer_email: 'customer@example.com',
+          currency: 'USD',
+
+          // Format items nicely
+          order_items: orderData.items.map(item => 
+            `${item.name} (x${item.quantity}) - $${(item.price * item.quantity).toFixed(2)}`
+          ).join('; '),
+
+          // Total item count
+          total_items: orderData.items.reduce((sum, item) => sum + item.quantity, 0)
+        })
+      });
+
+      if (response.ok) {
+        console.log('Order successfully sent to Zapier');
+      } else {
+        console.error('Failed to send to Zapier:', response.status);
+      }
+    } catch (error) {
+      console.error('Error sending to Zapier:', error);
+      // Don't block checkout if Zapier fails
+    }
+  };
+
+  // Handle order completion
+  const handleCompleteOrder = async () => {
+    // Save order to local history
+    const newOrder = addOrder(cart);
+    
+    // Generate unique order ID
+    const orderId = `order_${Date.now()}`;
+    
+    // Prepare order data
+    const orderData = {
+      orderId: orderId,
+      orderNumber: newOrder.orderNumber,
+      items: newOrder.items,
+      subtotal: newOrder.subtotal,
+      tax: newOrder.tax,
+      total: newOrder.total,
+      date: newOrder.date,
+      receiptNumber: newOrder.receiptNumber
+    };
+
+    // Send to Zapier (async, won't block user)
+    sendToZapier(orderData);
+    
+    // Optional: Keep HubSpot tracking for analytics
+    if (window._hsq) {
+      window._hsq.push(['trackCustomBehavioralEvent', {
+        name: 'pe1234567_order_completed',
+        properties: {
+          order_id: orderId,
+          order_total: newOrder.total,
+          currency: 'USD'
+        }
+      }]);
+    }
+    
+    // Clear cart and redirect
     clearCart();
     navigate('/history');
   };
