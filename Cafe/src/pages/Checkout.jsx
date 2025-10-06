@@ -41,7 +41,7 @@ const Checkout = () => {
         format: 'a4',
       });
 
-      const imgWidth = 210; // A4 width in mm
+      const imgWidth = 210;
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
 
       pdf.addImage(imgData, 'PNG', 0, 0, imgWidth, imgHeight);
@@ -65,26 +65,34 @@ const Checkout = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          // Send as numbers, not strings
+          // Basic order info (strings)
+          order_id: orderData.orderId,
+          order_number: orderData.orderNumber,
+          
+          // Customer info
+          customer_email: 'customer@example.com',
+          customer_name: 'Guest Customer',
+          
+          // Financial details (as numbers for HubSpot)
           order_total: Number(orderData.total.toFixed(2)),
           order_subtotal: Number(orderData.subtotal.toFixed(2)),
           order_tax: Number(orderData.tax.toFixed(2)),
-
-          // Timestamp in milliseconds for HubSpot
-          order_timestamp: Date.now(),
-
-          // Keep strings as strings
-          order_id: orderData.orderId,
-          order_number: orderData.orderNumber,
-          customer_email: 'customer@example.com',
           currency: 'USD',
-
-          // Format items nicely
+          
+          // Order items as formatted string
           order_items: orderData.items.map(item => 
-            `${item.name} (x${item.quantity}) - $${(item.price * item.quantity).toFixed(2)}`
+            `${item.name} (x${item.quantity}) - ${(item.price * item.quantity).toFixed(2)}`
           ).join('; '),
-
-          // Total item count
+          
+          // Order items as JSON (for more complex processing)
+          order_items_json: JSON.stringify(orderData.items),
+          
+          // Timestamps (HubSpot needs milliseconds)
+          order_timestamp: Date.now(),
+          order_date_iso: new Date().toISOString(),
+          receipt_number: orderData.receiptNumber,
+          
+          // Item count (as number)
           total_items: orderData.items.reduce((sum, item) => sum + item.quantity, 0)
         })
       });
@@ -146,7 +154,7 @@ const Checkout = () => {
         <h1 className="text-4xl font-bold text-center mb-8 text-amber-900">Checkout</h1>
         
         <div className="bg-white rounded-lg shadow-md overflow-hidden">
-          {/* Receipt Content - This will be captured for PDF */}
+          {/* Receipt Content */}
           <div ref={receiptRef} className="p-6 bg-white">
             <div className="text-center mb-6">
               <h2 className="text-2xl font-bold text-amber-900">Sunshine Cafe</h2>
