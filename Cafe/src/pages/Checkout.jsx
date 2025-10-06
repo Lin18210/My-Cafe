@@ -57,7 +57,7 @@ const Checkout = () => {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          customerEmail: 'customer@example.com', // replace with real
+          customerEmail: 'customer@example.com', // replace with real email
           orderId: orderData.orderId,
           orderNumber: orderData.orderNumber,
           subtotal: orderData.subtotal,
@@ -67,11 +67,11 @@ const Checkout = () => {
           orderTimestamp: Date.now()
         })
       });
-    } catch (_) {
-      // non-blocking
+      console.log('Order synced to HubSpot');
+    } catch (err) {
+      console.error('Failed to sync with HubSpot:', err);
     }
   };
-
   // Handle order completion
   const handleCompleteOrder = async () => {
     // Save order to local history
@@ -92,6 +92,9 @@ const Checkout = () => {
       receiptNumber: newOrder.receiptNumber
     };
 
+    // Send order to backend (non-blocking)
+    sendToBackend(orderData);
+    
     
     // Optional: Keep HubSpot tracking for analytics
     if (window._hsq) {
