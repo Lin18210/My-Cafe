@@ -85,7 +85,7 @@ const Contact = () => {
               
               <div className="mb-8">
                 <h3 className="font-semibold text-amber-200 mb-2">Visit Us</h3>
-                <p className="mb-1">123 Coffee Street</p>
+                <p className="mb-1">26th North Street</p>
                 <p>Brewville, CA 90210</p>
               </div>
               
