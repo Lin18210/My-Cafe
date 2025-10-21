@@ -12,7 +12,7 @@ const Cart = () => {
         <div className="container mx-auto max-w-4xl">
           <h1 className="text-4xl font-bold text-center mb-8 text-amber-900">Your Cart</h1>
           <div className="bg-white rounded-lg shadow-md p-8 text-center">
-            <p className="text-xl text-gray-600 mb-6">Your cart is empty</p>
+            <p className="text-xl text-gray-600 mb-6">Your cart is empty.</p>
             <Link 
               to="/menu" 
               className="bg-amber-600 hover:bg-amber-700 text-white font-medium py-2 px-6 rounded transition-colors inline-block"
