@@ -35,7 +35,7 @@ const Home = () => {
           <div className="bg-white p-6 rounded-lg shadow-md text-center">
             <div className="text-4xl mb-4 text-amber-600">🌿</div>
             <h3 className="text-xl font-semibold mb-2 text-amber-900">Cozy Atmosphere</h3>
-            <p className="text-gray-600">Enjoy your coffee in our warm, inviting space designed for comfort and conversation.</p>
+            <p className="text-gray-600">Enjoy your hot coffee in our warm, inviting space designed for comfort and conversation.</p>
           </div>
         </div>
       </div>

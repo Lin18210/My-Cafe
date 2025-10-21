@@ -3,6 +3,7 @@
     "@fontsource/playfair-display": "^5.2.8",
     "@fontsource/poppins": "^5.2.7",
     "axios": "^1.12.2",
+    "cors": "^2.8.5",
     "dotenv": "^17.2.3",
     "express": "^5.1.0",
     "html2canvas": "^1.4.1",
