@@ -108,7 +108,7 @@ const Cart = () => {
             to="/menu" 
             className="text-amber-700 hover:text-amber-800 font-medium transition-colors"
           >
-            ← Continue Shopping
+            ← Continue Shopping 
           </Link>
         </div>
       </div>
