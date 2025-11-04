@@ -96,7 +96,7 @@ const Contact = () => {
               
               <div className="mb-8">
                 <h3 className="font-semibold text-amber-200 mb-2">Email Us</h3>
-                <p>cafedelight@gmail.com</p>
+                <p>cafelight@gmail.com</p>
               </div>
               
               <div>
