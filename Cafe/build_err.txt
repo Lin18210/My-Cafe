@@ -1,0 +1,24 @@
+[36mvite v6.2.5 [32mbuilding for production...[36m[39m
+transforming...
+[32m✓[39m 2380 modules transformed.
+[31m✗[39m Build failed in 1.90s
+[31merror during build:
+[31msrc/components/Footer.jsx (2:17): "Facebook" is not exported by "node_modules/lucide-react/dist/esm/lucide-react.js", imported by "src/components/Footer.jsx".[31m
+file: [36mC:/Developement/Web/Cafe/Cafe/src/components/Footer.jsx:2:17[31m
+[33m
+1: import { Link } from 'react-router-dom';
+2: import { Coffee, Facebook, Instagram, Twitter, MapPin, Phone, Mail, ArrowRight } from 'lucide-react';
+                    ^
+3: 
+4: const Footer = () => {
+[31m
+    at getRollupError (file:///C:/Developement/Web/Cafe/Cafe/node_modules/rollup/dist/es/shared/parseAst.js:397:41)
+    at error (file:///C:/Developement/Web/Cafe/Cafe/node_modules/rollup/dist/es/shared/parseAst.js:393:42)
+    at Module.error (file:///C:/Developement/Web/Cafe/Cafe/node_modules/rollup/dist/es/shared/node-entry.js:16711:16)
+    at Module.traceVariable (file:///C:/Developement/Web/Cafe/Cafe/node_modules/rollup/dist/es/shared/node-entry.js:17160:29)
+    at ModuleScope.findVariable (file:///C:/Developement/Web/Cafe/Cafe/node_modules/rollup/dist/es/shared/node-entry.js:14816:39)
+    at ReturnValueScope.findVariable (file:///C:/Developement/Web/Cafe/Cafe/node_modules/rollup/dist/es/shared/node-entry.js:5582:38)
+    at FunctionBodyScope.findVariable (file:///C:/Developement/Web/Cafe/Cafe/node_modules/rollup/dist/es/shared/node-entry.js:5582:38)
+    at Identifier.bind (file:///C:/Developement/Web/Cafe/Cafe/node_modules/rollup/dist/es/shared/node-entry.js:5356:40)
+    at CallExpression.bind (file:///C:/Developement/Web/Cafe/Cafe/node_modules/rollup/dist/es/shared/node-entry.js:2779:28)
+    at CallExpression.bind (file:///C:/Developement/Web/Cafe/Cafe/node_modules/rollup/dist/es/shared/node-entry.js:11928:15)[39m

@@ -114,23 +114,23 @@ const Checkout = () => {
   };
 
   return (
-    <div className="min-h-screen bg-amber-50 py-12 px-4">
+    <div className="min-h-screen bg-cream-50 py-12 px-4">
       <div className="container mx-auto max-w-4xl">
-        <h1 className="text-4xl font-bold text-center mb-8 text-amber-900">Checkout</h1>
+        <h1 className="text-4xl font-bold text-center mb-8 text-coffee-900">Checkout</h1>
         
         <div className="bg-white rounded-lg shadow-md overflow-hidden">
           {/* Receipt Content */}
           <div ref={receiptRef} className="p-6 bg-white">
             <div className="text-center mb-6">
-              <h2 className="text-2xl font-bold text-amber-900">Sunshine Cafe</h2>
+              <h2 className="text-2xl font-bold text-coffee-900">Sunshine Cafe</h2>
               <p className="text-gray-600">123 Coffee Street, Brewville, CA 90210</p>
               <p className="text-gray-600">Tel: (555) 123-4567</p>
               <p className="text-gray-600">Receipt #{Math.floor(Math.random() * 10000).toString().padStart(4, '0')}</p>
               <p className="text-gray-600">{new Date().toLocaleString()}</p>
             </div>
             
-            <div className="border-t border-b border-gray-200 py-4 mb-4">
-              <h3 className="font-semibold text-amber-900 mb-3">Order Details</h3>
+            <div className="border-t border-b border-coffee-200 py-4 mb-4">
+              <h3 className="font-semibold text-coffee-900 mb-3">Order Details</h3>
               <table className="w-full">
                 <thead>
                   <tr className="text-left text-gray-600">
@@ -140,7 +140,7 @@ const Checkout = () => {
                     <th className="pb-2 text-right">Total</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-gray-200">
+                <tbody className="divide-y divide-coffee-100">
                   {cart.items.map((item) => (
                     <tr key={`${item.category}-${item.id}`} className="text-gray-800">
                       <td className="py-2">{item.name}</td>
@@ -156,16 +156,16 @@ const Checkout = () => {
             <div className="space-y-2 mb-4">
               <div className="flex justify-between">
                 <span className="text-gray-600">Subtotal</span>
-                <span className="font-medium">${cart.totalAmount.toFixed(2)}</span>
+                <span className="font-medium text-coffee-800">${cart.totalAmount.toFixed(2)}</span>
               </div>
               <div className="flex justify-between">
                 <span className="text-gray-600">Tax (8%)</span>
-                <span className="font-medium">${tax.toFixed(2)}</span>
+                <span className="font-medium text-coffee-800">${tax.toFixed(2)}</span>
               </div>
-              <div className="border-t border-gray-200 pt-2 mt-2">
+              <div className="border-t border-coffee-200 pt-2 mt-2">
                 <div className="flex justify-between">
-                  <span className="font-bold text-amber-900">Total</span>
-                  <span className="font-bold text-amber-900">${total.toFixed(2)}</span>
+                  <span className="font-bold text-coffee-900">Total</span>
+                  <span className="font-bold text-coffee-900">${total.toFixed(2)}</span>
                 </div>
               </div>
             </div>
@@ -177,17 +177,17 @@ const Checkout = () => {
           </div>
           
           {/* Action Buttons */}
-          <div className="bg-amber-50 p-6 flex flex-col sm:flex-row justify-between gap-4">
+          <div className="bg-coffee-50 p-6 flex flex-col sm:flex-row justify-between gap-4">
             <button 
               onClick={downloadReceipt}
-              className="bg-amber-600 hover:bg-amber-700 text-white font-medium py-3 px-6 rounded transition-colors flex-1"
+              className="bg-coffee-600 hover:bg-coffee-700 text-white font-medium py-3 px-6 rounded transition-colors flex-1 transform hover:scale-105"
             >
               Download Receipt
             </button>
             
             <button 
               onClick={handleCompleteOrder}
-              className="bg-green-600 hover:bg-green-700 text-white font-medium py-3 px-6 rounded transition-colors flex-1"
+              className="bg-coffee-600 hover:bg-coffee-700 text-white font-medium py-3 px-6 rounded transition-colors flex-1 transform hover:scale-105"
             >
               Complete Order
             </button>
@@ -197,7 +197,7 @@ const Checkout = () => {
         <div className="mt-8 text-center">
           <Link 
             to="/cart" 
-            className="text-amber-700 hover:text-amber-800 font-medium transition-colors"
+            className="text-coffee-600 hover:text-coffee-700 font-medium transition-colors"
           >
             ← Back to Cart
           </Link>

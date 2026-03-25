@@ -1,146 +1,130 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { useCart } from '../context/CartContext';
 import { useState, useEffect } from 'react';
+import { Coffee, Menu, X, ShoppingBag } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 const Navbar = () => {
   const { cart } = useCart();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
   
-  const toggleMenu = () => {
-    setIsMenuOpen(!isMenuOpen);
-  };
+  const toggleMenu = () => setIsMenuOpen(!isMenuOpen);
   
-  // Add animation effect for cart badge
-  const [animateCart, setAnimateCart] = useState(false);
-  
+  // Handle scroll effect
   useEffect(() => {
-    if (cart.totalItems > 0) {
-      setAnimateCart(true);
-      const timer = setTimeout(() => setAnimateCart(false), 500);
-      return () => clearTimeout(timer);
-    }
-  }, [cart.totalItems]);
+    const handleScroll = () => setScrolled(window.scrollY > 20);
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  // Close mobile menu on route change
+  useEffect(() => {
+    setIsMenuOpen(false);
+  }, [location.pathname]);
+
+  const navLinks = [
+    { name: 'Home', path: '/' },
+    { name: 'Menu', path: '/menu' },
+    { name: 'About', path: '/about' },
+    { name: 'History', path: '/history' },
+    { name: 'Contact', path: '/contact' },
+  ];
 
   return (
-    <nav className="bg-gradient-to-r from-amber-800 to-amber-700 text-white p-4 shadow-lg sticky top-0 z-50">
-      <div className="container mx-auto flex justify-between items-center">
-        {/* Logo on the left */}
-        <Link to="/" className="text-2xl font-bold flex items-center transition-transform duration-300 hover:scale-105">
-          <span className="mr-2 text-amber-300">☕</span>
-          <span className="bg-gradient-to-r from-amber-100 to-amber-200 text-transparent bg-clip-text">Sunshine Cafe</span>
-        </Link>
-        
-        {/* Mobile Menu Button */}
-        <button 
-          className="md:hidden text-white focus:outline-none" 
-          onClick={toggleMenu}
-          aria-label="Toggle menu"
-        >
-          {isMenuOpen ? (
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          ) : (
-            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-            </svg>
-          )}
-        </button>
-        
-        {/* Cart Icon for Mobile - Always visible */}
-        <Link to="/cart" className="md:hidden hover:text-amber-200 transition-all duration-300 font-medium relative ml-4 hover:scale-110">
-          <span className="flex items-center">
-            <span className="mr-1 text-amber-300">🛒</span>
-            <span className="sr-only">Cart</span>
+    <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'bg-coffee-950/90 backdrop-blur-md shadow-xl py-3 border-b border-coffee-800/50' : 'bg-transparent py-5'}`}>
+      <div className="container mx-auto px-6 md:px-12 flex justify-between items-center">
+        {/* Logo */}
+        <Link to="/" className="flex items-center group">
+          <motion.div 
+            whileHover={{ rotate: 15 }} 
+            className="flex items-center justify-center h-10 w-10 rounded-full bg-gold-500/10 text-gold-400 mr-3 border border-gold-500/20 group-hover:bg-gold-500 group-hover:text-coffee-950 transition-all duration-300"
+          >
+            <Coffee size={20} strokeWidth={2.5} />
+          </motion.div>
+          <span className="text-2xl font-display font-bold text-white tracking-wide">
+            Sunshine <span className="text-gold-400">Cafe</span>
           </span>
-          {cart.totalItems > 0 && (
-            <span className={`absolute -top-2 -right-2 bg-gradient-to-r from-amber-500 to-amber-400 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center shadow-md ${animateCart ? 'animate-pulse' : ''}`}>
-              {cart.totalItems}
-            </span>
-          )}
         </Link>
         
-        {/* Desktop Navigation Links */}
-        <div className="hidden md:flex space-x-6 items-center gap-8 text-amber-50">
-          <Link to="/" className="hover:text-amber-200 transition-all duration-300 font-medium hover:scale-110 relative group">
-            Home
-            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-300 transition-all duration-300 group-hover:w-full"></span>
-          </Link>
-          <Link to="/menu" className="hover:text-amber-200 transition-all duration-300 font-medium hover:scale-110 relative group">
-            Menu
-            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-300 transition-all duration-300 group-hover:w-full"></span>
-          </Link>
-          <Link to="/about" className="hover:text-amber-200 transition-all duration-300 font-medium hover:scale-110 relative group">
-            About Us
-            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-300 transition-all duration-300 group-hover:w-full"></span>
-          </Link>
-          <Link to="/contact" className="hover:text-amber-200 transition-all duration-300 font-medium hover:scale-110 relative group">
-            Contact
-            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-300 transition-all duration-300 group-hover:w-full"></span>
-          </Link>
-          
-          <Link to="/history" className="hover:text-amber-200 transition-all duration-300 font-medium hover:scale-110 relative group">
-            Order History
-            <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-amber-300 transition-all duration-300 group-hover:w-full"></span>
-          </Link>
-          
-          {/* Cart Icon with Badge for Desktop */}
-          <Link to="/cart" className="hover:text-amber-200 transition-all duration-300 font-medium relative ml-20 hover:scale-110 bg-amber-600 hover:bg-amber-500 px-4 py-2 rounded-full shadow-md">
-            <span className="flex items-center">
-              <span className="mr-1 text-amber-200">🛒</span>
-              <span>Cart</span>
-            </span>
+        {/* Mobile Menu Button & Cart (Mobile) */}
+        <div className="flex items-center space-x-4 md:hidden">
+          <Link to="/cart" className="relative text-white hover:text-gold-400 transition-colors">
+            <ShoppingBag size={24} />
             {cart.totalItems > 0 && (
-              <span className={`absolute -top-2 -right-2 bg-gradient-to-r from-amber-400 to-amber-300 text-amber-900 text-xs rounded-full h-6 w-6 flex items-center justify-center shadow-md border border-amber-200 ${animateCart ? 'animate-pulse' : ''}`}>
+              <span className="absolute -top-2 -right-2 flex h-5 w-5 items-center justify-center text-[10px] font-bold bg-gold-500 text-coffee-950 rounded-full border-2 border-coffee-950">
                 {cart.totalItems}
               </span>
             )}
           </Link>
+          <button 
+            className="text-white focus:outline-none hover:text-gold-400 transition-colors" 
+            onClick={toggleMenu}
+            aria-label="Toggle menu"
+          >
+            {isMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
+        </div>
+        
+        {/* Desktop Navigation */}
+        <div className="hidden md:flex md:items-center md:space-x-8">
+          <div className="flex space-x-8">
+            {navLinks.map((link) => (
+              <Link 
+                key={link.path} 
+                to={link.path} 
+                className={`text-sm tracking-widest uppercase font-medium transition-colors hover:text-gold-400 ${location.pathname === link.path ? 'text-gold-400' : 'text-coffee-100/80'}`}
+              >
+                {link.name}
+              </Link>
+            ))}
+          </div>
+          
+          {/* Cart Icon */}
+          <Link to="/cart" className="relative group p-2">
+            <div className="text-white group-hover:text-gold-400 transition-colors">
+              <ShoppingBag size={22} />
+            </div>
+            <AnimatePresence>
+              {cart.totalItems > 0 && (
+                <motion.span 
+                  initial={{ scale: 0 }}
+                  animate={{ scale: 1 }}
+                  exit={{ scale: 0 }}
+                  className="absolute 0 top-0 right-0 flex h-5 w-5 translate-x-1/4 -translate-y-1/4 items-center justify-center text-[10px] font-bold bg-gold-500 text-coffee-950 rounded-full border-2 border-coffee-950"
+                >
+                  {cart.totalItems}
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </Link>
         </div>
       </div>
       
-      {/* Mobile Menu Dropdown */}
-      {isMenuOpen && (
-        <div className="md:hidden bg-gradient-to-b from-amber-700 to-amber-800 mt-2 py-2 px-4 rounded-b shadow-lg animate-fade-in-down">
-          <div className="flex flex-col space-y-3">
-            <Link 
-              to="/" 
-              className="hover:text-amber-200 transition-all duration-300 font-medium py-3 px-4 rounded-lg hover:bg-amber-700 flex items-center"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <span className="text-amber-300 mr-2">🏠</span> Home
-            </Link>
-            <Link 
-              to="/menu" 
-              className="hover:text-amber-200 transition-all duration-300 font-medium py-3 px-4 rounded-lg hover:bg-amber-700 flex items-center"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <span className="text-amber-300 mr-2">🍽️</span> Menu
-            </Link>
-            <Link 
-              to="/about" 
-              className="hover:text-amber-200 transition-all duration-300 font-medium py-3 px-4 rounded-lg hover:bg-amber-700 flex items-center"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <span className="text-amber-300 mr-2">ℹ️</span> About Us
-            </Link>
-            <Link 
-              to="/contact" 
-              className="hover:text-amber-200 transition-all duration-300 font-medium py-3 px-4 rounded-lg hover:bg-amber-700 flex items-center"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <span className="text-amber-300 mr-2">📞</span> Contact
-            </Link>
-            <Link 
-              to="/history" 
-              className="hover:text-amber-200 transition-all duration-300 font-medium py-3 px-4 rounded-lg hover:bg-amber-700 flex items-center"
-              onClick={() => setIsMenuOpen(false)}
-            >
-              <span className="text-amber-300 mr-2">📋</span> Order History
-            </Link>
-          </div>
-        </div>
-      )}
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {isMenuOpen && (
+          <motion.div 
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="md:hidden absolute top-full left-0 w-full bg-coffee-950 border-b border-coffee-800 shadow-2xl"
+          >
+            <div className="flex flex-col py-4">
+              {navLinks.map((link) => (
+                <Link 
+                  key={link.path} 
+                  to={link.path} 
+                  className={`px-6 py-4 text-sm tracking-widest uppercase border-l-4 transition-colors ${location.pathname === link.path ? 'border-gold-400 text-gold-400 bg-coffee-900/50' : 'border-transparent text-coffee-100 hover:bg-coffee-900 hover:text-gold-400'}`}
+                >
+                  {link.name}
+                </Link>
+              ))}
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </nav>
   );
 };
