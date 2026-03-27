@@ -124,7 +124,7 @@ const Checkout = () => {
             <div className="text-center mb-6">
               <h2 className="text-2xl font-bold text-coffee-900">Sunshine Cafe</h2>
               <p className="text-gray-600">123 Coffee Street, Brewville, CA 90210</p>
-              <p className="text-gray-600">Tel: (555) 123-4567</p>
+              <p className="text-gray-600">Tel: (09) 123-4567</p>
               <p className="text-gray-600">Receipt #{Math.floor(Math.random() * 10000).toString().padStart(4, '0')}</p>
               <p className="text-gray-600">{new Date().toLocaleString()}</p>
             </div>
