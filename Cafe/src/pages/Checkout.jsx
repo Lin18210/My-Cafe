@@ -199,7 +199,7 @@ const Checkout = () => {
             to="/cart" 
             className="text-coffee-600 hover:text-coffee-700 font-medium transition-colors"
           >
-            ← Back to Cart
+            ← Back To Cart
           </Link>
         </div>
       </div>
